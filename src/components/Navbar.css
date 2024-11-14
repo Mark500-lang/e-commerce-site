@@ -1,0 +1,3 @@
+header.nav-bar--hidden {
+    transform: translateY(-100%);
+  }
