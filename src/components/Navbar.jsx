@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useScrollListener from "./hooks/useScrollListener";
 import './Navbar.css';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-function Navbar() {
+function Navbar({data, query, setQuery, setResults, setNotFoundMessage}) {
     const [navClassList, setNavClassList] = useState([]);
     const scroll = useScrollListener();
 
@@ -21,6 +19,26 @@ function Navbar() {
     setNavClassList(_classList);
     }, [scroll.y, scroll.lastY]);
 
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        // Filter the data based on the query
+        const filteredResults = data.filter(item => {
+            const searchString = `${item.name} ${item.product_details.manufacture} ${item.product_details.applicable_vehicles} ${item.category?.cooling || ''} ${item.lighting?.body_parts || ''}`.toLowerCase();
+            return searchString.includes(query.toLowerCase());
+        });
+
+        setResults(filteredResults);
+
+         // Set a custom not-found message if no results
+         if (filteredResults.length === 0) {
+            setNotFoundMessage(`No results found for "${query}". Please try another term.`);
+        } else {
+            setNotFoundMessage('');
+        }
+    };
+    console.log(data);
     return (
         <header
         className={`sticky top-0 w-full transition-all duration-300 ease-in-out transform ${navClassList.join(" ")}`}
@@ -76,13 +94,22 @@ function Navbar() {
             </Link>
             </nav>
             <div className="flex justify-end items-center gap-3 pr-20">
-                <Autocomplete
-                    id="free-solo-demo"
-                    className="w-60"
-                    freeSolo
-                    // options={top100Films.map((option) => option.title)}
-                    renderInput={(params) => <TextField {...params} label="Search Input" />}
-                />
+                <form onSubmit={handleSearch} className="flex items-center space-x-2 mb-4">
+                    <input
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Search by brand, make, category..."
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        type="submit"
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Search
+                    </button>
+                </form>
+
                 <Link to="/profile">
                     <AccountCircleIcon/>
                 </Link>

@@ -66,7 +66,7 @@ function ProductPage({data}){
 
     return(
         <div className="min-h-max">
-            <div className="container max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-2 mx-auto pb-20">
+            <div className="container grid grid-cols-1 lg:grid-cols-2 gap-2 mx-auto pb-20">
 
                 <div className="w-full px-5">
                     <div className="mt-16 flex flex-col md:flex-col gap-2">
