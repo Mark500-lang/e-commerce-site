@@ -38,7 +38,6 @@ function Navbar({data, query, setQuery, setResults, setNotFoundMessage}) {
             setNotFoundMessage('');
         }
     };
-    console.log(data);
     return (
         <header
         className={`sticky top-0 w-full transition-all duration-300 ease-in-out transform ${navClassList.join(" ")}`}

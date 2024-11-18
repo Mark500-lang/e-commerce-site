@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import {data} from "./components/data";
 import ProductPage from './components/ProductPage';
+import Cart from './components/Cart';
 
 function App() {
   const [results, setResults] = useState([]);
@@ -22,6 +23,7 @@ function App() {
             <Route index element={<Home/>}/> */}
           <Route exact path="/" component={() => <Home data={data} results={results} query={query} notFoundMessage={notFoundMessage}/>}/>
           <Route exact path="/product/:id" component={() => <ProductPage data={data}/>}/>
+          <Route exact path="/cart" component={() => <Cart products={data}/>}/>
         </Switch>
         <Footer/>
     </BrowserRouter>

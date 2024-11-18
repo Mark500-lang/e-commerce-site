@@ -18,7 +18,7 @@ export const data = [
         id: 1,
         name: "Radiator Mazda Demio DE3AS 2012",
         sku_product_code: "M0001483",
-        price: "12,000",
+        price: 12000,
         rating: "5",
         remaining_units: 120,
         category: {
@@ -28,6 +28,7 @@ export const data = [
             {imageUrl: pic1},
             {imageUrl: pic2},
         ],
+        in_cart: true,
         product_details:{
             sku: "M0001483",
             manufacture: "AUTOJAPAN",
@@ -60,7 +61,7 @@ export const data = [
         id: 2,
         name: "Radiator Core Support Toyota Corolla Fielder ZRE142",
         sku_product_code: "R0001690",
-        price: "5,000",
+        price: 5000,
         rating: "4.4",
         remaining_units: 50,
         category: {
@@ -70,6 +71,7 @@ export const data = [
             {imageUrl: pic3},
             {imageUrl: pic4},
         ],
+        in_cart: true,
         product_details:{
             sku: "",
             manufacture: "",
@@ -102,7 +104,7 @@ export const data = [
         id: 3,
         name: "Bonnet Hood Subaru Impreza G4 GJ7 Sports GP7 2012 - 2015",
         sku_product_code: "E0006882",
-        price: "22,000",
+        price: 22000,
         rating: "4.4",
         remaining_units: 50,
         category: {
@@ -112,6 +114,7 @@ export const data = [
             {imageUrl: pic5},
             {imageUrl: pic6},
         ],
+        in_cart: false,
         product_details:{
             sku: "E0006882",
             manufacture: "AUTOJAPAN",
@@ -123,7 +126,7 @@ export const data = [
         id: 4,
         name: "Head Lamp Honda Fit GK4 2013 Lhs",
         sku_product_code: "D0005862",
-        price: "22,000",
+        price: 22000,
         rating: "4.4",
         remaining_units: 50,
         lighting: {
@@ -133,6 +136,7 @@ export const data = [
             {imageUrl: pic7},
             {imageUrl: pic8},
         ],
+        in_cart: false,
         product_details:{
             sku: "D0005862",
             manufacture: "AUTOJAPAN",
@@ -144,7 +148,7 @@ export const data = [
         id: 5,
         name: "Tail Lamp Suzuki Alto HA25S Lhs",
         sku_product_code: "D0005703",
-        price: "8,500",
+        price: 8500,
         rating: "4.4",
         remaining_units: 50,
         lighting: {
@@ -154,6 +158,7 @@ export const data = [
             {imageUrl: pic9},
             {imageUrl: pic10},
         ],
+        in_cart: false,
         product_details:{
             sku: "D0005703",
             manufacture: "AUTOJAPAN",

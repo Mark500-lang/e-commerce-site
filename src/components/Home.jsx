@@ -15,11 +15,6 @@ function Home({data, results, query, notFoundMessage}){
                     <h5 className="text-2xl mb-4">{notFoundMessage}</h5>
                 }
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="w-full max-w-sm bg-gray-300 border border-gray-200 rounded-lg shadow">
-                        <h5 className="text-2xl font-semibold tracking-tight text-gray-500 pl-6 pt-10">
-                            Best Prices and Best Quality
-                        </h5>  
-                    </div>
                     {results.length === 0 ?
 
                         data.map((item)=>{
