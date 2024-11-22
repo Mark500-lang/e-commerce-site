@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 
@@ -11,8 +11,12 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SecurityIcon from '@mui/icons-material/Security';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+import SearchIcon from '@mui/icons-material/Search';
+
 import Reviews from './Reviews';
 import ProductDescription from './ProductDescription';
+
+import { Modal, Fade } from "@mui/material";
 
 function ProductPage({data}){
     const { id } = useParams();
@@ -20,6 +24,38 @@ function ProductPage({data}){
     const [count, setCount] = useState(1);
     const [pageChange, setPageChange] = useState(true);
 
+    const [open, setOpen] = useState(false);
+    
+    // Product magnifier functionality
+    const magnifierHeight = 500;
+    const magnifieWidth = 400;
+    const zoomLevel = 3;
+    const [imgWidth, setImgWidth] = useState(0);
+    const [imgHeight, setImgHeight] = useState(0);
+    const [showMagnifier, setShowMagnifier] = useState(false);
+    const [[x, y], setXY] = useState([0, 0]);
+
+    // For disabling on mobile
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // Mobile threshold
+        };
+
+        // Initial check
+        handleResize();
+
+        // Event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup listener on unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    // Page change functionality for description and reviews
     const handlePageChangeDescription=(event)=>{
         event.preventDefault();
         setPageChange(true);
@@ -29,7 +65,7 @@ function ProductPage({data}){
         setPageChange(false);
     }
 
-    // Ensure speakersData is available and not null
+    // Ensure productData is available and not null
     if (!data) {
         return <div className='pt-5 pb-5' style={{ backgroundColor: "#fff" }}><div className='container-lg'>Loading...</div></div>;
     }
@@ -64,6 +100,13 @@ function ProductPage({data}){
         });
     }
 
+    const handleModalOpen = () => {
+        setOpen(true);
+    }
+    const handleClose = () => {
+        setOpen(false);
+      };
+
     return(
         <div className="min-h-max">
             <div className="container grid grid-cols-1 lg:grid-cols-2 gap-2 mx-auto pb-20">
@@ -78,14 +121,56 @@ function ProductPage({data}){
                                 animate={{ y: 0 }}
                                 transition={{ type: 'tween', duration: .3, ease: 'easeOut', delay: 0   }}
                             >
+                                <SearchIcon className='absolute top-0 right-0 rounded-full bg-neutral-700 text-white p-2 mt-3 mr-3'
+                                    style={{
+                                        height: `40px`,
+                                        width: `40px`,
+                                        cursor: "pointer"
+                                    }}
+                                    onClick={(e) => handleModalOpen()}
+                                />
                                 <motion.img
                                     src={product.media[selectedImage].imageUrl}
-                                    alt="illustration"
+                                    alt="product illustration"
                                     className="mx-auto object-cover"
+                                    onMouseEnter={(e) => {
+                                        if (isMobile) return; // Disable on mobile
+                                        const elem = e.currentTarget;
+                                        const { width, height } = elem.getBoundingClientRect();
+                                        setImgWidth(width);
+                                        setImgHeight(height);
+                                        setShowMagnifier(true);
+                                    }}
+                                    onMouseMove={(e) => {
+                                        if (isMobile) return; // Disable on mobile
+                                        const elem = e.currentTarget;
+                                        const { top, left } = elem.getBoundingClientRect();
+                                        const x = e.pageX - left - window.pageXOffset;
+                                        const y = e.pageY - top - window.pageYOffset;
+                                        setXY([x, y]);
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (isMobile) return; // Disable on mobile
+                                        setShowMagnifier(false);
+                                    }}
                                 />
+
                             </motion.div>
+                            <Modal
+                                className="flex justify-center z-50"
+                                open={open}
+                                onClose={handleClose}
+                                closeAfterTransition
+                            >
+                                <Fade in={open} timeout={500} className="outline-none">
+                                <img
+                                    src={product.media[selectedImage].imageUrl}
+                                    alt="asd"
+                                    style={{ maxHeight: "90%", maxWidth: "90%", paddingTop: "8rem" }}
+                                />
+                                </Fade>
+                            </Modal>
                         </div>
-                        
                         <div className="flex flex-row w-1/3">
                             {product.media.map((item, index) => (
                                 <motion.div
@@ -110,6 +195,24 @@ function ProductPage({data}){
                     </div>
                 </div>
 
+
+                {showMagnifier && !isMobile && (
+                        <div
+                            className="absolute pointer-events-none border border-gray-200 bg-white"
+                            style={{
+                                height: `${magnifierHeight}px`,
+                                width: `${magnifieWidth}px`,
+                                top: `17%`,
+                                left: "50%",
+                                // `${x - magnifieWidth / 2}px`,
+                                backgroundImage: `url('${product.media[selectedImage].imageUrl}')`,
+                                backgroundSize: `${imgWidth * zoomLevel}px ${imgHeight * zoomLevel}px`,
+                                backgroundPositionX: `${-x * zoomLevel + magnifieWidth / 2}px`,
+                                backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
+                                zIndex: "2",
+                            }}
+                        />
+                        )}
                 <div className="md:flex-1 px-4 pt-24">
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">
                     {product.name}
@@ -136,7 +239,8 @@ function ProductPage({data}){
                             </button>
                         </div>
                     </div>
-
+                    
+                    {/* Quality assuarance banner */}
                     <div className='bg-gray-100 shadow flex flex-row justify-between p-6 md:mt-20 rounded-lg'>
                         <div className='flex flex-col justify-center p-2'>
                             <Avatar className='mx-auto'>
@@ -168,6 +272,7 @@ function ProductPage({data}){
                     </div>
                 </div>
 
+                {/* Description and Reviews section */}
                 <div className='p-4 w-full shadow rounded-md mt-24 pb-10'>
                     <div className='flex flex-1 gap-8 mb-6'>
                         <h1 className={`text-lg font-medium text-gray-500 transition ease-in-out delay-100 hover:border-b-2 hover:border-red-600 cursor-pointer 

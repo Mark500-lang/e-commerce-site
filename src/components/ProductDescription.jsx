@@ -9,32 +9,32 @@ function ProductDescription({data}){
                 <Table>
                     <TableBody>
                         <TableRow>
-                            <TableCell>SKU</TableCell>
+                            <TableCell sx={{ fontWeight: 'bolder'}}>SKU</TableCell>
                             <TableCell>{data.product_details.sku}</TableCell>
                         </TableRow>
 
                         <TableRow>
-                            <TableCell>Product Name</TableCell>
+                            <TableCell sx={{ fontWeight: 'bolder'}}>Product Name</TableCell>
                             <TableCell>{data.name}</TableCell>
                         </TableRow>
 
                         <TableRow>
-                            <TableCell>Condition</TableCell>
+                            <TableCell sx={{ fontWeight: 'bolder'}}>Condition</TableCell>
                             <TableCell>New</TableCell>
                         </TableRow>
 
                         <TableRow>
-                            <TableCell>Make</TableCell>
+                            <TableCell sx={{ fontWeight: 'bolder'}}>Make</TableCell>
                             <TableCell>{data.product_details.manufacture}</TableCell>
                         </TableRow>
 
                         <TableRow>
-                            <TableCell>Applicable Vehicles</TableCell>
+                            <TableCell sx={{ fontWeight: 'bolder'}}>Applicable Vehicles</TableCell>
                             <TableCell>{data.product_details.applicable_vehicles}</TableCell>
                         </TableRow>
 
                         <TableRow>
-                            <TableCell>Price</TableCell>
+                            <TableCell sx={{ fontWeight: 'bolder'}}>Price</TableCell>
                             <TableCell>{data.price}</TableCell>
                         </TableRow>
                     </TableBody>

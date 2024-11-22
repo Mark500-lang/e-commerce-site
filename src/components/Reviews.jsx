@@ -19,8 +19,8 @@ function Reviews({data}){
                                 <h3 className="font-medium">{item.user_name}</h3>
                                 <Rating name="read-only" value={item.score} readOnly />
                             </span>
-                            <p className="font-normal text-sm text-gray-500">{item.email}</p>
-                            <p className="pt-6 font-normal text-md text-gray-800">{item.review}</p>
+                            <p className="font-normal text-xs text-gray-500">{item.email}</p>
+                            <p className="pt-6 font-normal text-sm text-gray-700">{item.review}</p>
                         </div>
                     )
             })}
