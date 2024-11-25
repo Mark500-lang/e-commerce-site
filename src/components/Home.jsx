@@ -5,14 +5,14 @@ function Home({data, results, query, notFoundMessage}){
     console.log(results);
     return(
         <div className="min-h-max">
-            <div className="container mx-auto pt-20 pb-20">
+            <div className="container mx-auto pt-8 pb-20">
                 {results.length !== 0 ? 
                     <>
-                        <h5 className="text-2xl mb-4">Products matching <span className="font-extrabold">"{` ${query}`}"</span></h5>
+                        <h5 className="text-xl mb-4">Products matching <span className="font-extrabold">"{` ${query}`}"</span></h5>
                         <h5 className="text-sm mb-4">Showing 1 to  <span className="font-bold">{`${results.length}`}</span> results of  <span className="font-extrabold">{`${results.length}`}</span></h5>
                     </>
                     :
-                    <h5 className="text-2xl mb-4">{notFoundMessage}</h5>
+                    <h5 className="text-xl mb-4">{notFoundMessage}</h5>
                 }
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {results.length === 0 ?
@@ -38,15 +38,10 @@ function Home({data, results, query, notFoundMessage}){
                                             {item.name}
                                         </h5>
                                         </div>
-                                        <div className="flex items-center justify-between pt-4">
-                                            <span className="text-2xl font-bold text-gray-900">
-                                                Ksh {item.price}
+                                        <div className="flex items-center pt-4">
+                                            <span className="text-xl font-bold text-gray-900">
+                                                KES {item.price}
                                             </span>
-                                            <div
-                                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center"
-                                            >
-                                                View
-                                            </div>
                                         </div>
                                     </div>
                                 </Link>
@@ -77,14 +72,9 @@ function Home({data, results, query, notFoundMessage}){
                                         </h5>
                                         </div>
                                         <div className="flex items-center justify-between pt-4">
-                                            <span className="text-2xl font-bold text-gray-900">
-                                                Ksh {item.price}
+                                            <span className="text-xl font-bold text-gray-900">
+                                                KES {item.price}
                                             </span>
-                                            <div
-                                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center"
-                                            >
-                                                View
-                                            </div>
                                         </div>
                                     </div>
                                 </Link>

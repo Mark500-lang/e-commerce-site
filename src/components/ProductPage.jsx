@@ -27,9 +27,9 @@ function ProductPage({data}){
     const [open, setOpen] = useState(false);
     
     // Product magnifier functionality
-    const magnifierHeight = 500;
+    const magnifierHeight = 420;
     const magnifieWidth = 400;
-    const zoomLevel = 3;
+    const zoomLevel = 4;
     const [imgWidth, setImgWidth] = useState(0);
     const [imgHeight, setImgHeight] = useState(0);
     const [showMagnifier, setShowMagnifier] = useState(false);
@@ -121,7 +121,7 @@ function ProductPage({data}){
                                 animate={{ y: 0 }}
                                 transition={{ type: 'tween', duration: .3, ease: 'easeOut', delay: 0   }}
                             >
-                                <SearchIcon className='absolute top-0 right-0 rounded-full bg-neutral-700 text-white p-2 mt-3 mr-3'
+                                <SearchIcon className='absolute top-0 right-0 rounded-full bg-[#383C49] hover:bg-[#1A1E26] text-white p-2 mt-3 mr-3'
                                     style={{
                                         height: `40px`,
                                         width: `40px`,
@@ -202,7 +202,7 @@ function ProductPage({data}){
                             style={{
                                 height: `${magnifierHeight}px`,
                                 width: `${magnifieWidth}px`,
-                                top: `17%`,
+                                top: `22%`,
                                 left: "50%",
                                 // `${x - magnifieWidth / 2}px`,
                                 backgroundImage: `url('${product.media[selectedImage].imageUrl}')`,
@@ -234,14 +234,14 @@ function ProductPage({data}){
                         </div>
 
                         <div className="w-1/3">
-                            <button className="flex flex-row bg-gray-900 text-white py-2 px-4 rounded-md font-bold hover:bg-gray-800">
+                            <button className="flex flex-row bg-[#383C49] hover:bg-[#1A1E26] text-white py-2 px-4 rounded-md font-bold">
                             <ShoppingCartIcon/> Add to Cart
                             </button>
                         </div>
                     </div>
                     
                     {/* Quality assuarance banner */}
-                    <div className='bg-gray-100 shadow flex flex-row justify-between p-6 md:mt-20 rounded-lg'>
+                    <div className='shadow flex flex-row justify-between p-6 md:mt-20 rounded-lg'>
                         <div className='flex flex-col justify-center p-2'>
                             <Avatar className='mx-auto'>
                                 <CheckCircleOutlineIcon className=''/>
@@ -293,8 +293,7 @@ function ProductPage({data}){
                     <ProductDescription data={product}/>
                     :
                     <Reviews data={product}/> 
-                }
-
+                    }
                 </div>
             </div>
         </div>
