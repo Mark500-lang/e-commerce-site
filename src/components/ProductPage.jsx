@@ -27,9 +27,9 @@ function ProductPage({data}){
     const [open, setOpen] = useState(false);
     
     // Product magnifier functionality
-    const magnifierHeight = 420;
-    const magnifieWidth = 400;
-    const zoomLevel = 4;
+    const magnifierHeight = 480;
+    const magnifieWidth = 500;
+    const zoomLevel = 3;
     const [imgWidth, setImgWidth] = useState(0);
     const [imgHeight, setImgHeight] = useState(0);
     const [showMagnifier, setShowMagnifier] = useState(false);
@@ -202,7 +202,7 @@ function ProductPage({data}){
                             style={{
                                 height: `${magnifierHeight}px`,
                                 width: `${magnifieWidth}px`,
-                                top: `22%`,
+                                top: `30%`,
                                 left: "50%",
                                 // `${x - magnifieWidth / 2}px`,
                                 backgroundImage: `url('${product.media[selectedImage].imageUrl}')`,

@@ -48,14 +48,15 @@ function Navbar({data, query, setQuery, setResults, setNotFoundMessage}) {
         <div className="bg-gray-100">
             <div className="container mx-auto flex flex-row px-10 py-2 justify-between items-center">
                 <div className="flex flex-row">
-                    <p className="font-semibold pr-3">Customer Care: <span className="pl-1">+254700000000</span></p>
-                    <Link to="/contacts" className="font-semibold border-l-2 border-gray-800 pl-3">Contacts</Link>
+                    <p className="font-medium pr-3">Customer Care: <span className="pl-1">+254700000000</span></p>
+                    <Link to="/contacts" className="font-medium border-l-2 border-gray-600 pl-3">Contacts</Link>
                 </div>
             </div>
         </div>
         <div className="">
             <div className="container mx-auto flex flex-row flex-wrap px-10 py-5 justify-between items-center">
                 <Link
+                onClick={(e) => setResults([])}
                 to="/"
                 className="flex title-font font-medium items-center text-grey-900 mr-4 border-r-none md:border-r border-gray-900 pr-4 md:mb-0"
                 >

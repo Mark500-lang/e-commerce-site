@@ -129,8 +129,8 @@ export const data = [
         price: 22000,
         rating: "4.4",
         remaining_units: 50,
-        lighting: {
-            body_parts: "Front Lamp"
+        category: {
+            lighting: "Front Lamp"
         },
         media: [
             {imageUrl: pic7},
@@ -151,8 +151,8 @@ export const data = [
         price: 8500,
         rating: "4.4",
         remaining_units: 50,
-        lighting: {
-            body_parts: "Front Lamp"
+        category: {
+            lighting: "Tail Lamp"
         },
         media: [
             {imageUrl: pic9},

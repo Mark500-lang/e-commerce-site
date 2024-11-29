@@ -1,123 +1,164 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import "./CategoryNavSection.css";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const categoryData=[
-    {
-        "lighting": [
-            "Back Lamp",
-            "Front Lamp",
-            "Reverse Lamp",
-            "Brake Lamp",
-            "Room Lamp",
-            "Bumper Lamp",
-            "Side Lamp",
-            "Corner Lamp",
-            "Tail Lamp",
-            "Fog Lamp",
-            "Head Lamp",
-            "Indicator Lamp",
-            "License Lamp",
-            "Light Case",
-            "Rear Reflector",
-            "Tail Lens",
-            "Fog Lamp Cover",
-            "Signal Switch"
-        ],
-        "cooling": [
-            "Condenser",
-            "Cooler Tank",
-            "Fan Blade",
-            "Fan Shroud",
-            "Intercooler",
-            "Radiator",
-            "Radiator Cover",
-            "Radiator Fittings",
-            "Spare Tank",
-            "Washer Tank"
-        ],
-        "body_parts": [
-            "Air Tank",
-            "Body Parts",
-            "Bonnet",
-            "Bumper",
-            "Door",
-            "Fender",
-            "Grille",
-            "Mud Flap",
-            "Radiator Support",
-            "Roof Panel",
-            "Tail Body",
-            "Tail Gate",
-            "Washer Tank",
-            "Winding Machines"
-        ],
-        "mirror": [
-            "Angle Mirror",
-            "Fender Mirror",
-            "Interior Mirror",
-            "Mirror arm",
-            "Mirror glass",
-            "Side Mirror",
-            "Mirror Arm"
-        ],
-        "accessories": [],
-        "on_sale": []
-    }
-]
+const categoryData = {
+    Lighting: [
+        "Tail Lamp",
+        "Front Lamp",
+        "Reverse Lamp",
+        "Brake Lamp",
+        "Room Lamp",
+        "Bumper Lamp",
+        "Side Lamp",
+        "Corner Lamp",
+        "Tail Lamp",
+        "Fog Lamp",
+        "Head Lamp",
+        "Indicator Lamp",
+        "License Lamp",
+        "Light Case",
+        "Rear Reflector",
+        "Tail Lens",
+        "Fog Lamp Cover",
+        "Signal Switch",
+    ],
+    Cooling: [
+        "Condenser",
+        "Cooler Tank",
+        "Fan Blade",
+        "Fan Shroud",
+        "Intercooler",
+        "Radiator",
+        "Radiator Cover",
+        "Radiator Fittings",
+        "Spare Tank",
+        "Washer Tank",
+    ],
+    Body_Parts: [
+        "Air Tank",
+        "Body Parts",
+        "Bonnet",
+        "Bumper",
+        "Door",
+        "Fender",
+        "Grille",
+        "Mud Flap",
+        "Radiator Support",
+        "Roof Panel",
+        "Tail Body",
+        "Tail Gate",
+        "Washer Tank",
+        "Winding Machines",
+    ],
+    Mirror: [
+        "Angle Mirror",
+        "Fender Mirror",
+        "Interior Mirror",
+        "Mirror Arm",
+        "Mirror Glass",
+        "Side Mirror",
+        "Mirror Arm",
+    ]
+};
 
-function CategorySection({data}){
-    const [filterTerm, setFilterTerm] = useState('');
+function CategorySection() {
+    const [isNavExpanded, setIsNavExpanded] = useState(false);
+    const history = useHistory();
+    const [activeCategory, setActiveCategory] = useState(null);
 
-    const handleCategoryFilter = (term)=>{
-        setFilterTerm(term);
-    }
+    const handleNavigation = (category, subcategory = null) => {
+        const isSmallScreen = window.innerWidth <= 766; // Small screen threshold
+    
+        // If small screen and main category clicked, toggle the dropdown instead of navigating
+        if (isSmallScreen && subcategory === null) {
+            //opening and closing sub categories dropdown on mobile view
+            if (category === activeCategory) {
+                setActiveCategory(null); // Close the dropdown
+            } else {
+                setActiveCategory(category); // Open the dropdown
+            }
+            return;
+        }
+    
+        const formattedCategory = category.toLowerCase().replace(/_/g, "-");
+        const formattedSubcategory = subcategory
+            ? subcategory.toLowerCase().replace(/ /g, "-")
+            : null;
+    
+        if (subcategory) {
+            setIsNavExpanded(false); // Close the hamburger menu
+            history.push(`/catalogue/category/${formattedCategory}${formattedSubcategory ? `/${formattedSubcategory}` : ""}`);
+        }
+    };
+    
 
-    return(
-        <ul className="container mx-auto grid grid-cols-5 px-10 py-2 justify-between items-center">
-            <li className="">
-                <p onCLick={(e) => handleCategoryFilter("lighting")} 
-                    className="pl-[38%] cursor-pointer p-2 hover:bg-[#383C49] hover:text-white transition-all duration-100"
-                >Lighting
-                </p>
-                <div>
-                    
-                </div>
-            </li>
-            <li>
-                <p onCLick={(e) => handleCategoryFilter("mirror")} 
-                    className="pl-[40%] cursor-pointer p-2 hover:bg-[#383C49] hover:text-white transition-all duration-100"
-                >Mirror
-                </p>
-                <div>
-                    
-                </div>
-            </li>
-            <li>
-                <p onCLick={(e) => handleCategoryFilter("cooling")} 
-                    className="pl-[40%] cursor-pointer p-2 hover:bg-[#383C49] hover:text-white transition-all duration-100"
-                >Cooling
-                </p>
-                <div>
-                    
-                </div>
-            </li>
-
-            <li>
-                <p onCLick={(e) => handleCategoryFilter("body_parts")} 
-                    className="pl-[40%] cursor-pointer p-2 hover:bg-[#383C49] hover:text-white transition-all duration-100"
-                >Body Parts
-                </p>
-                <div>
-                    
-                </div>
-            </li>
-            <li>
-                <p className="pl-[40%] cursor-pointer p-2 hover:bg-[#383C49] hover:text-white transition-all duration-100">On Sale</p>
-                <div>
-                    
-                </div>
-            </li>
-        </ul>
-    )
+    return (
+        <>
+            <div className="hamburger-parent">
+                {isNavExpanded ? 
+                    <CloseIcon onClick={() => {setIsNavExpanded(false);}}
+                        className="hamburger" sx={{height: "30px", width: "30px"}}
+                    />
+                :
+                    <MenuIcon onClick={() => {setIsNavExpanded(true);}}
+                        className="hamburger" sx={{height: "30px", width: "30px"}}
+                    />
+                }
+            </div>
+            <ul id={``} className={`md:container md:mx-auto md:my-0 list-none md:grid md:grid-cols-5 px-10  md:justify-between  md:items-center ${
+                isNavExpanded ? 
+                    "category-list-active flex flex-col justify-start" 
+                : 
+                    "category-list-inactive"
+            }`}>
+                {Object.entries(categoryData).map(([category, subCategories]) => (
+                    <li key={category} className="category-nav-item">
+                        <p
+                            onClick={() => handleNavigation(category)}
+                            className={`main-category cursor-pointer md:p-2 pl-6 p-2 transition-all duration-100 flex md:justify-center md:items-center ${
+                                activeCategory === category ? "bg-[#383C49] text-white" : "hover:bg-[#383C49] hover:text-white"
+                            }`}
+                        >
+                            {category.replace("_", " ")} 
+                            <span className="dropdown-icon">
+                                <ArrowDropDownIcon className={` transition-all duration-100 ${activeCategory === category ? 
+                                    "bg-[#383C49] text-white" : "hover:bg-[#383C49] hover:text-white"
+                                }`}/>
+                            </span>
+                        </p>
+                        <div className={`${activeCategory === category ? "toggle-mobile-subnav-active": "toggle-mobile-subnav"} subnav-content container md:border bg-white w-full`}>
+                            {subCategories.map((subCategory, index) => (
+                                <p
+                                    key={index}
+                                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                                    onClick={() => {
+                                        handleNavigation(category, subCategory);
+                                        setIsNavExpanded(false); // Close menu after navigation
+                                    }}
+                                >
+                                    {subCategory}
+                                </p>
+                            ))}
+                        </div>
+                    </li>
+                ))}
+                <li className="category-nav-item bg-red-500">
+                    <p className="main-category cursor-pointer md:p-2 pl-6 p-2  hover:bg-[#383C49] text-white transition-all duration-100 flex md:justify-center md:items-center">
+                        On Sale
+                    </p>
+                    {/* <div className="container border bg-white shadow subnav-content grid grid-cols-3 w-full items-center">
+                        <h1 className="p-2">faaaa</h1>
+                        <h1 className="p-2">rrrrrrr</h1>
+                        <h1 className="p-2">kkkksss</h1>
+                    </div> */}
+                </li>
+            </ul>
+        </>
+    );
 }
 
 export default CategorySection;

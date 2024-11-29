@@ -1,0 +1,90 @@
+.subnav-content{
+    display: none;
+    position: absolute;
+    padding: 1rem 0.5rem;
+    left: 13.2vw;
+    /* left: 0%; */
+    margin: 0 auto;
+    /* background-color: #acacac; */
+    height: fit-content;
+    /* width: 73.5%; */
+    z-index: 2;
+    columns: 3;
+    column-rule: 1px solid #eee;
+}
+.category-nav-item:hover .subnav-content {
+    display: block;
+}
+
+.hamburger-parent{
+    display: none;
+}
+
+.hamburger:hover{
+    color: red;
+    transition: all .2s;
+}
+.dropdown-icon{
+    display: none;
+}
+@media screen and (max-width: 766px) {
+    .hamburger-parent {
+      display: block;
+      margin-left: 20px;
+      padding-bottom: 15px;
+    }
+    .dropdown-icon{
+        display: block;
+    }
+    .category-list-inactive{
+    transform: translatex(-100%); /* Initially hidden above the screen */
+    transition: transform 0.2s ease-in-out;
+    position: absolute;
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    padding: 1rem 0 2rem;
+    justify-content: flex-start;
+
+    opacity: 0; /* Hidden */
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .category-list-active{
+        position: absolute;
+        margin: 0;
+        background-color: rgb(255, 255, 255);
+        z-index: 2;
+        width: 100%;
+        padding: 1rem 0 2rem;
+        justify-content: flex-start;
+        transition: all ease-in-out 0.2s;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.13);
+
+        transform: translatex(0); /* Fully visible */
+        transition: transform 0.2s ease-in-out;
+
+        opacity: 1; /* Fully visible */
+        transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .toggle-mobile-subnav{
+        display: none !important;
+    }
+    .toggle-mobile-subnav-active{
+        position: relative;
+        padding: 3px 0;
+        left: 2rem;
+        margin: 0 auto;
+        height: fit-content;
+        columns: 1;
+        color: red;
+        animation: fadeIn 0.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+  }
